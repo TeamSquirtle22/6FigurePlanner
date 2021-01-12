@@ -7,8 +7,8 @@ module.exports = {
 		filename: 'bundle.js',
 	},
 	devServer: {
-		hot: true,
-		publicPath: '/dist',
+    hot: true,
+    publicPath: '/dist',
 		proxy: {
 			'*': 'http://localhost:3000',
 		},
@@ -21,7 +21,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
 					},
 				},
 			},
