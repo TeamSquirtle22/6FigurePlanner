@@ -25,7 +25,7 @@ function AddApplicationForm() {
   const [companyNumber, setCompanyNumber] = useState('');
   const [dateApplied, setDateApplied] = useState('');
   const [interviewStatus, setInterviewStatus] = useState('');
-  const [offerRecieved, setOfferRecieved] = useState('');
+  const [offerReceived, setOfferReceived] = useState('');
   const [doubleDown, setDoubleDown] = useState('');
 
   // Event listeners for form values below
@@ -50,8 +50,8 @@ function AddApplicationForm() {
   const handleInterviewStatus = (e) => {
     setInterviewStatus(e.target.value);
   }
-  const handleOfferRecieved = (e) => {
-    setOfferRecieved(e.target.value);
+  const handleOfferReceived = (e) => {
+    setOfferReceived(e.target.value);
   }
   const handleDoubleDown= (e) => {
     setDoubleDown(e.target.value);
@@ -66,7 +66,10 @@ function AddApplicationForm() {
         'position': position,
         'applied_on': dateApplied,
         'company_email': companyEmail,
-        'company_number': companyNumber,
+        'company_phone_number': companyNumber,
+        'double_down': doubleDown,
+        'interview_status': interviewStatus,
+        'offer_received': offerReceived,
         'id': 1
       })
     } )
@@ -97,10 +100,10 @@ function AddApplicationForm() {
             >
             <Input name="company" placeholder="Company" value={company} onChange={handleCompany}/>
             <Input name="position" placeholder="Position" value={position} onChange={handlePosition}/>
-            <Input name="email" placeholder="Company Email" value={companyEmail} onChange={handleCompanyEmail}/>
-            <Input name="phone_number" placeholder="Company Phone" value={companyNumber} onChange={handleCompanyNumber}/>
-            <Input name="date_applied" placeholder="Date Applied (YYYY/MM/DD)" value={dateApplied} onChange={handleDateApplied}/>
-			      <Input name="double_down" placeholder="Double Down" value={doubleDown} onChange={handleDoubleDown}/>
+            <Input name="company_email" placeholder="Company Email" value={companyEmail} onChange={handleCompanyEmail}/>
+            <Input name="company_phone_number" placeholder="Company Phone" value={companyNumber} onChange={handleCompanyNumber}/>
+            <Input name="date_applied" placeholder="(YYYY-MM-DD)" value={dateApplied} onChange={handleDateApplied}/>
+			      <Input name="double_down" placeholder="(YYYY-MM-DD)" value={doubleDown} onChange={handleDoubleDown}/>
           </form>
           <Box>
             <Select placeholder="Interview Status" value={interviewStatus} onChange={handleInterviewStatus}>
@@ -110,7 +113,7 @@ function AddApplicationForm() {
             </Select>
 		      </Box>
 	      	<Box>
-            <Select placeholder="Offer received?" value={offerRecieved} onChange={handleOfferRecieved}>
+            <Select placeholder="Offer received?" value={offerReceived} onChange={handleOfferReceived}>
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </Select>
