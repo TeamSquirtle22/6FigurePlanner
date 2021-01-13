@@ -5,7 +5,7 @@ function ApplicationsTable() {
 	return (
 		<Box
 			m={2}
-			// maxW='1200px'
+			maxW='1200px'
 			mx='auto'
 			border='1px'
 			borderRadius='lg'
