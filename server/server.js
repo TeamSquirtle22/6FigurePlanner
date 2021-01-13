@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const config = require('./models/config');
 
 /* OAuth */
 const session = require('express-session');
@@ -45,6 +46,7 @@ passport.use(new LinkedInStrategy({
 }
 ));
 
+/* Routes */
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../index.html'));
 });
@@ -78,6 +80,16 @@ app.post('/interview', interviewController.addInterview, (req, res) => {
 app.get('/interview', interviewController.getInterview, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
+
+//OAuth route
+app.get('/linkedin-auth', passport.authenticate('linkedin', {
+  scope: ['r_emailaddress', 'r_liteprofile'],
+}));
+
+app.get('/linkedin-auth/callback', passport.authenticate('linkedin', {
+  successRedirect: '/',
+  failureRedirect: '/wrong',
+}));
 
 app.use((err, req, res, next) => {
   console.log(err);
