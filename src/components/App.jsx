@@ -1,4 +1,5 @@
 import React from 'react';
+import AddApplicationForm from './AddApplicationForm.jsx';
 import ApplicationsContainer from './ApplicationsContainer.jsx';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
 			<h1> This is App.jsx</h1>
 			<h2> This is another h2 on App.jsx</h2>
 			<ApplicationsContainer />
+			<AddApplicationForm />
 		</div>
 	);
 }

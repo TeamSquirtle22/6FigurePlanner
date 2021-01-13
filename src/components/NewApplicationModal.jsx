@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ApplicationsTable from './ApplicationsTable.jsx';
+// import ApplicationsTable from './ApplicationsTable.jsx';
 import {
 	Modal,
 	ModalOverlay,
@@ -270,4 +270,4 @@ function NewApplicationModal() {
 		</>
 	);
 }
-export default NewApplicationModal;
+// export default NewApplicationModal;
