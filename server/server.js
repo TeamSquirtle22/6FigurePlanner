@@ -1,15 +1,46 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const userController = require('./controller/userController');
+const appController = require('./controller/appController');
+const interviewController = require('./controller/interviewController');
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// if (process.env.NODE_ENV === 'production') {
-  app.use('/dist', express.static(path.join(__dirname, '../dist')));
-// }
-
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  return res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+//creating a new user
+app.post('/user', userController.addUser, (req, res) => {
+  return res.status(200).json('saved');
+});
+
+//getting the user info
+app.get('/user', userController.getUser, (req, res) => {
+  return res.status(200).json({data: res.locals.data});
+});
+
+//creating a new application
+app.post('/app', appController.addApp, (req, res) => {
+  return res.status(200).json('App saved');
+});
+
+//getting the users application
+app.get('/app', appController.getApp, (req, res) => {
+  return res.status(200).json({data: res.locals.data});
+});
+
+//creating a new interview date for user
+app.post('/interview', interviewController.addInterview, (req, res) => {
+  return res.status(200).json('interview saved');
+});
+
+//getting the users interview info
+app.get('/interview', interviewController.getInterview, (req, res) => {
+  return res.status(200).json({data: res.locals.data});
 });
 
 app.use((err, req, res, next) => {
