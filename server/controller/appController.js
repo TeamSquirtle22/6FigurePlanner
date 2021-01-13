@@ -33,4 +33,14 @@ module.exports = {
       next(err);
     }
   },
+
+  deleteApp: async (req, res, next) => {
+    try {
+      const {id} = req.body;
+      await pool.query('DELETE * FROM Applications WHERE _id = $1', [id]);
+      return next();
+    } catch (err) {
+      next(err);
+    }
+  },
 };
