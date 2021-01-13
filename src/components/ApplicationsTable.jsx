@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, Box, Button } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Box } from '@chakra-ui/react';
 
 function ApplicationsTable() {
 	return (
 		<Box
-			centerContent
 			m={2}
 			// maxW='1200px'
 			mx='auto'
