@@ -11,6 +11,7 @@ module.exports = {
         company_number,
         id,
       } = req.body;
+      console.log(req.body);
       await pool.query(
         'INSERT INTO Applications (company,position,applied_on,company_email,company_number,user_id) VALUES($1, $2, $3, $4, $5, $6)',
         [company, position, applied_on, company_email, company_number, id]
