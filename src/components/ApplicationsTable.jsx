@@ -12,9 +12,6 @@ function ApplicationsTable() {
 			borderRadius='lg'
 			borderColor='gray.200'
 		>
-			<Button colorScheme='teal' size='md'>
-				Add Application
-			</Button>
 			<Table variant='striped' colorScheme='teal'>
 				{/* Table column headers */}
 				<Thead>

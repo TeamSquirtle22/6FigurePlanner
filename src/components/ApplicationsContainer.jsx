@@ -30,7 +30,7 @@ function ApplicationsContainer() {
 			<Container
 				centerContent
 				m={2}
-				maxW='1280px'
+				maxW='1480px'
 				mx='auto'
 				border='1px'
 				borderRadius='lg'

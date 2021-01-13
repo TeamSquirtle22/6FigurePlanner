@@ -17,7 +17,7 @@ module.exports = {
       );
       return next();
     } catch (err) {
-      next(err);
+      return next(err);
     }
   },
   getApp: async (req, res, next) => {

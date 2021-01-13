@@ -61,22 +61,24 @@ function AddApplicationForm() {
 
   const submitData = (e) => {
     fetch('/app', {
-    method: 'POST',
-    headers: {'content-type': 'application/json'},
-    body: JSON.stringify({
-      'company': company,
-      'position': position,
-      'company_email': companyEmail,
-      'company_number': companyNumber,
-      'id': 1
-    })
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        'company': company,
+        'position': position,
+        'applied_on': dateApplied,
+        'company_email': companyEmail,
+        'company_number': companyNumber,
+        'id': 1
+      })
     } )
+    e.preventDefault();
   }
 
 	return (
 	  <>
 		<Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-		  Open
+		  Add Application
 		</Button>
 		<Drawer
 		  isOpen={isOpen}
