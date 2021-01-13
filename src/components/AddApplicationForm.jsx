@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationsTable from './ApplicationsTable.jsx';
+// import ApplicationsTable from './ApplicationsTable.jsx';
 import {
 	Box,
 	Input,
@@ -25,15 +25,17 @@ import {
 	FormHelperText,
 } from '@chakra-ui/react';
 
-// const initialValues = {
-// 	position: '',
-// 	company: '',
-// 	dateApplied: '',
-// 	companyContact: '',
-// 	interviewStatus: '',
-// 	offer: false,
-// 	doubleDown: '',
-// };
+const initialValues = {
+	position: '',
+  company: '',
+  companyEmail: '',
+  companyPhone: '',
+	dateApplied: '',
+	companyContact: '',
+	interviewStatus: '',
+	offer: false,
+	doubleDown: '',
+};
 
 function AddApplicationForm() {
 	const { isOpen, onOpen, onClose } = useDisclosure();

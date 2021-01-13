@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import ApplicationsTable from './ApplicationsTable.jsx';
 
 function ApplicationsContainer() {

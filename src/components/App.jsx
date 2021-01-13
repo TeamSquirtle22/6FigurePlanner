@@ -8,8 +8,10 @@ function App() {
 			<h1> This is App.jsx</h1>
 			<h2> This is another h2 on App.jsx</h2>
 			<ApplicationsContainer />
-			<AddApplicationForm />
 		</div>
+    <div>
+      <AddApplicationForm />
+    </div>
 	);
 }
 export default App;
