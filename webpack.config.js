@@ -8,10 +8,12 @@ module.exports = {
 	},
 	devServer: {
     hot: true,
-    publicPath: '/dist',
+		publicPath: '/dist',
+		host: 'localhost',
+		port: 8080,
 		proxy: {
 			'*': 'http://localhost:3000',
-		},
+		}
 	},
 	module: {
 		rules: [
