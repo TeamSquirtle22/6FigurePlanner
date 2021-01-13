@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// import ApplicationsTable from './ApplicationsTable.jsx';
 import {
 	Input,
 	Select,
@@ -12,8 +11,7 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	Box,
-  DrawerCloseButton,
-  FormControl,
+  DrawerCloseButton
 } from '@chakra-ui/react';
 
 function AddApplicationForm() {
