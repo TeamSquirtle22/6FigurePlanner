@@ -1,5 +1,4 @@
 import React from 'react';
-import AddApplicationForm from './AddApplicationForm.jsx';
 import ApplicationsContainer from './ApplicationsContainer.jsx';
 
 const App =()=> {
