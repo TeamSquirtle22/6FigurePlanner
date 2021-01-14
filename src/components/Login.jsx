@@ -40,11 +40,8 @@ export default function Login(props) {
 }
 
 const LoginForm = props => {
-  const OAuth = _ => {
-    // console.log('click')
-    // const res = await fetch('/linkedin-auth');
-    // const data = await res.json();
-    // console.log(data);
+  const OAuth = async _ => {
+    window.location = '/linkedin-auth';
   };
 
   return (
