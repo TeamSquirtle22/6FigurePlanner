@@ -4,7 +4,7 @@ import desktop from '../../assets/desktoplarge.jpg';
 import Logo from '../../assets/6FigurePlanner_Logo.png';
 import LinkedIn from '../../assets/Sign-in-Large---Active.png'
 
-export default function Login() {
+export default function Login(props) {
   const background = {
     backgroundImage: `url(${desktop})`,
   }
@@ -28,9 +28,9 @@ export default function Login() {
             <Box maxHeight='420px' textAlign="center" borderWidth={1} px={4} width='full' maxWidth='500px' borderRadius={4} textAlign='center' boxShadow='lg' style={white}>
               <Heading>Sign In To Your Account</Heading>
               <Text>
-                Or <Link>start your 14-day free trial</Link>
+                Or <Link>Sign Up</Link>
               </Text>
-              <LoginForm />
+              <LoginForm setLoggedIn={props.setLoggedIn}/>
             </Box>
           {/* </Stack> */}
         </Flex>
@@ -39,8 +39,13 @@ export default function Login() {
   )
 }
 
-const LoginForm = _ => {
-  const OAuth = _ => fetch('/linkedin-auth');
+const LoginForm = props => {
+  const OAuth = _ => {
+    // console.log('click')
+    // const res = await fetch('/linkedin-auth');
+    // const data = await res.json();
+    // console.log(data);
+  };
 
   return (
     <Box my={8} textAlign='left'>
@@ -59,7 +64,7 @@ const LoginForm = _ => {
             <Link>Forgot your password?</Link>
           </Box>
         </Stack>
-        <Button width="full" mt={4}>Sign In</Button>
+        <Button onClick={props.setLoggedIn} width="full" mt={4}>Sign In</Button>
         <Text textAlign='center'>Or</Text>
         <Box align='center'>
           <Button onClick={OAuth} mt={4}>{<Image src={LinkedIn} backgroundSize='auto'/>}</Button>

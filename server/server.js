@@ -91,9 +91,13 @@ app.get('/interview', interviewController.getInterview, (req, res) => {
 });
 
 //OAuth route
-app.get('/linkedin-auth', passport.authenticate('linkedin', {
-  scope: ['r_emailaddress', 'r_liteprofile'],
-}));
+app.get('/linkedin-auth',
+  (req, res, next) => {
+    passport.authenticate('linkedin', { scope: ['r_emailaddress', 'r_liteprofile'],});
+    next();
+  },
+  (req, res) => res.status(200).json({data: 'linkedin auth route response'})
+);
 
 app.get('/linkedin-auth/callback', passport.authenticate('linkedin', {
   successRedirect: '/',
