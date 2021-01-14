@@ -53,7 +53,21 @@ module.exports = {
       await pool.query("DELETE FROM Applications WHERE _id = $1", [id]);
       return next();
     } catch (err) {
-      next(err);
+      return next(err);
+    }
+  },
+
+  updateApp: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { interviewStatus, offerReceived, doubleDown } = req.body;
+      await pool.query(
+        "UPDATE Applications SET interview_status=$1, offer_received=$2, double_down=$3 WHERE _id= $4",
+        [interviewStatus, offerReceived, doubleDown, id],
+      );
+      return next();
+    } catch (err) {
+      return next(err);
     }
   },
 };

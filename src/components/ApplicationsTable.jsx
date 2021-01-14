@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InterviewsTable from "./InterviewsTable.jsx";
 import { Box, Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import UpdateForm from "./UpdateForm.jsx";
 
 function ApplicationsTable(props) {
   const deleteApp = (e) => {
@@ -14,11 +15,15 @@ function ApplicationsTable(props) {
   if (data) {
     const length = data.length;
     for (let i = 0; i < length; i++) {
+      //   fetch(`/interview/${data[i]._id}`).then((res) => res.json()).then((
+      //     data,
+      //   ) => setRes(data.data));
+      //   console.log(res);
       rows.push(
         <Tr key={data[i]._id}>
           <Td>{data[i].company}</Td>
           <Td>{data[i].position}</Td>
-          <Td>{data[i].applied_on.substring(0,10)}</Td>
+          <Td>{data[i].applied_on.substring(0, 10)}</Td>
           <Td>{data[i].interview_status}</Td>
           <Td>{data[i].company_email}</Td>
           <Td>{data[i].company_number}</Td>
@@ -37,6 +42,9 @@ function ApplicationsTable(props) {
           <Td>
             <InterviewsTable app_id={data[i]._id} />
           </Td>
+          <Td>
+            <UpdateForm id={data[i]._id} setResponse={props.setResponse} />
+          </Td>
         </Tr>,
       );
     }
@@ -44,7 +52,7 @@ function ApplicationsTable(props) {
   return (
     <Box
       m={2}
-      maxW="1200px"
+      maxW="1400px"
       mx="auto"
       border="1px"
       borderRadius="lg"
@@ -63,7 +71,8 @@ function ApplicationsTable(props) {
             <Th>Offer Received</Th>
             <Th>Double-Down</Th>
             <Th>DELETE</Th>
-			<Th>Interview</Th>
+            <Th>Interview</Th>
+            <Th>Update</Th>
           </Tr>
         </Thead>
         <Tbody>

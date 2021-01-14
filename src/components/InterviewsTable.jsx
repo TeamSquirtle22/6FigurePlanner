@@ -19,7 +19,8 @@ import {
 function InterviewsTable(props) {
   const [stage, setStage] = useState("");
   const [interviewDate, setInterviewDate] = useState("");
-  const [res, setRes] = useState("");
+  const [res, setRes] = useState([]);
+  const [update, setUpdate] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleStage = (e) => {
@@ -42,16 +43,22 @@ function InterviewsTable(props) {
       }),
     });
   };
-
-  fetch(`/interview/${props.app_id}`).then((res) => res.json()).then((data) =>
-    setRes(data.data)
-  );
-  console.log(res);
+  if (isOpen) {
+    fetch(`/interview/${props.app_id}`).then((res) => res.json()).then((data) =>
+      setRes(data.data)
+    );
+    console.log(res);
+  }
 
   if (res.length === 0) {
     return (
       <>
-        <Button size="xs" onClick={onOpen}>Interview</Button>
+        <Button
+          size="xs"
+          onClick={onOpen}
+        >
+          Interview
+        </Button>
 
         <Modal
           isOpen={isOpen}
@@ -94,7 +101,12 @@ function InterviewsTable(props) {
   } else {
     return (
       <>
-        <Button onClick={onOpen} size="xs">Interview</Button>
+        <Button
+          onClick={onOpen}
+          size="xs"
+        >
+          Interview
+        </Button>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -104,13 +116,18 @@ function InterviewsTable(props) {
             <ModalBody>
               <UnorderedList>
                 <ListItem>STAGE: {res[0].stage}</ListItem>
-                <ListItem>Interview Date: {res[0].interview_date.substring(0,10)}</ListItem>
+                <ListItem>
+                  Interview Date: {res[0].interview_date.substring(0, 10)}
+                </ListItem>
               </UnorderedList>
             </ModalBody>
 
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
+              </Button>
+              <Button colorScheme="grey" mr={3}>
+                Update
               </Button>
             </ModalFooter>
           </ModalContent>
