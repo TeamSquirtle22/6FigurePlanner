@@ -41,9 +41,9 @@ passport.use(new LinkedInStrategy({
   clientSecret: config.linkedinAuth.clientSecret,
   callbackURL: config.linkedinAuth.callbackURL,
   scope: ['r_emailaddress', 'r_liteprofile'],
-}, function (token, tokenSecret, profile, done) {
-  return done(null, profile);
-}
+  }, function (token, tokenSecret, profile, done) {
+    return done(null, profile);
+  }
 ));
 
 /* Routes */
@@ -114,6 +114,7 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(3000, () => {
+  console.log('http://localhost:3000');
   console.log('App listening on port 3000!');
 });
 
