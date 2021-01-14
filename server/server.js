@@ -19,7 +19,7 @@ app.post('/user', userController.addUser, (req, res) => {
 });
 
 //getting the user info
-app.get('/user', userController.getUser, (req, res) => {
+app.get('/user/:id', userController.getUser, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
@@ -29,7 +29,7 @@ app.post('/app', appController.addApp, (req, res) => {
 });
 
 //getting the users application
-app.get('/app', appController.getApp, (req, res) => {
+app.get('/app/:id', appController.getApp, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
@@ -44,7 +44,7 @@ app.post('/interview', interviewController.addInterview, (req, res) => {
 });
 
 //getting the users interview info
-app.get('/interview', interviewController.getInterview, (req, res) => {
+app.get('/interview/:id', interviewController.getInterview, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
