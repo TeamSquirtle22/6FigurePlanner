@@ -251,6 +251,7 @@ function NewApplicationModal() {
 												</Editable>
 											</VStack>
 											<Spacer />
+                    </HStack>
 									</>
 								);
 							})}

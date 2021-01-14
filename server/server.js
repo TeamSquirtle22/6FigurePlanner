@@ -1,8 +1,12 @@
 /* General Imports */
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const path = require('path');
 const config = require('./models/config');
+
+app.use(cors());
+app.options('*', cors());  
 
 /* OAuth */
 const session = require('express-session');
