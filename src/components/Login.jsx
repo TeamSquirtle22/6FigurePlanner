@@ -3,8 +3,9 @@ import { ThemeProvider, theme, ColorModProvider, CSSReset, Flex, Box, Heading, T
 import desktop from '../../assets/desktoplarge.jpg';
 import Logo from '../../assets/6FigurePlanner_Logo.png';
 import LinkedIn from '../../assets/Sign-in-Large---Active.png'
+import SignUpForm from './SignUpForm.jsx';
 
-export default function Login(props) {
+export default function Login() {
   const background = {
     backgroundImage: `url(${desktop})`,
   }
@@ -25,13 +26,8 @@ export default function Login(props) {
         </Flex>  
         <Flex minHeight='100vh' width='full' justifyContent='center'>
           {/* <Stack> */}
-            <Box maxHeight='420px' textAlign="center" borderWidth={1} px={4} width='full' maxWidth='500px' borderRadius={4} textAlign='center' boxShadow='lg' style={white}>
-              <Heading>Sign In To Your Account</Heading>
-              <Text>
-                Or <Link>Sign Up</Link>
-              </Text>
-              <LoginForm setLoggedIn={props.setLoggedIn}/>
-            </Box>
+           {/* <LoginForm white={white}/> */}
+           <SignUpForm white={white}/>
           {/* </Stack> */}
         </Flex>
       </div>
@@ -39,15 +35,15 @@ export default function Login(props) {
   )
 }
 
-const LoginForm = props => {
-  const OAuth = _ => {
-    // console.log('click')
-    // const res = await fetch('/linkedin-auth');
-    // const data = await res.json();
-    // console.log(data);
-  };
+const LoginForm = (props) => {
+  const OAuth = _ => fetch('/linkedin-auth');
 
   return (
+    <Box maxHeight='420px' textAlign="center" borderWidth={1} px={4} width='full' maxWidth='500px' borderRadius={4} textAlign='center' boxShadow='lg' style={props.white}>
+              <Heading>Sign In To Your Account</Heading>
+              <Text>
+                Or <Link>start your 14-day free trial</Link>
+              </Text>
     <Box my={8} textAlign='left'>
       <form>
         <FormControl>
@@ -64,12 +60,14 @@ const LoginForm = props => {
             <Link>Forgot your password?</Link>
           </Box>
         </Stack>
-        <Button onClick={props.setLoggedIn} width="full" mt={4}>Sign In</Button>
+        <Button width="full" mt={4}>Sign In</Button>
         <Text textAlign='center'>Or</Text>
         <Box align='center'>
           <Button onClick={OAuth} mt={4}>{<Image src={LinkedIn} backgroundSize='auto'/>}</Button>
         </Box>
       </form>
     </Box>
+    </Box>
   )
 }
+
