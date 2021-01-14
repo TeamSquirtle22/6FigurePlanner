@@ -1,7 +1,13 @@
 import React from 'react';
+import ApplicationsContainer from './ApplicationsContainer.jsx';
 
-export default App = () => {
+const App =()=> {
 	return (
-		<div>Hello World</div>
-		)
+		<div>
+			<h1> This is App.jsx</h1>
+			<h2> This is another h2 on App.jsx</h2>
+			<ApplicationsContainer />
+		</div>
+	);
 }
+export default App;

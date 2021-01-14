@@ -71,6 +71,11 @@ app.get('/app', appController.getApp, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
+//deleting an application
+app.delete('/app/:id', appController.deleteApp, (req, res) => {
+  return res.status(200).json('app deleted')
+})
+
 //creating a new interview date for user
 app.post('/interview', interviewController.addInterview, (req, res) => {
   return res.status(200).json('interview saved');
