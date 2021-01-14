@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   Box,
   Button,
@@ -14,14 +14,14 @@ import {
   ModalOverlay,
   Select,
   useDisclosure,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 function UpdateForm(props) {
-  const [interviewStatus, setInterviewStatus] = useState("");
-  const [offerReceived, setOfferReceived] = useState("");
-  const [doubleDown, setDoubleDown] = useState("");
+  const [interviewStatus, setInterviewStatus] = useState('');
+  const [offerReceived, setOfferReceived] = useState('');
+  const [doubleDown, setDoubleDown] = useState('');
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleInterviewStatus = (e) => {
     setInterviewStatus(e.target.value);
@@ -35,33 +35,27 @@ function UpdateForm(props) {
 
   const submitInfo = (e) => {
     fetch(`/app/${props.id}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
+      method: 'PATCH',
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
         interviewStatus,
         offerReceived,
         doubleDown,
       }),
     });
-    fetch("/app/1").then((res) => res.json()).then((data) =>
-      props.setResponse(data.data)
-    );
+    fetch(`/app/${props._id}`)
+      .then((res) => res.json())
+      .then((data) => props.setResponse(data.data));
     e.preventDefault();
   };
 
   return (
     <>
-      <Button
-        size="xs"
-        onClick={onOpen}
-      >
+      <Button size="xs" onClick={onOpen}>
         Update Info
       </Button>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Interview Info</ModalHeader>

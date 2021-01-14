@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import InterviewsTable from "./InterviewsTable.jsx";
-import { Box, Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import UpdateForm from "./UpdateForm.jsx";
+import React, {useEffect, useState} from 'react';
+import InterviewsTable from './InterviewsTable.jsx';
+import {Box, Button, Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react';
+import UpdateForm from './UpdateForm.jsx';
 
 function ApplicationsTable(props) {
   const deleteApp = (e) => {
-    fetch(`/app/${e.target.value}`, { method: "DELETE" });
-    fetch("/app/1").then((res) => res.json()).then((data) =>
-      props.setResponse(data.data)
-    );
+    fetch(`/app/${e.target.value}`, {method: 'DELETE'});
+    fetch(`/app/${props.id}`)
+      .then((res) => res.json())
+      .then((data) => props.setResponse(data.data));
   };
   const rows = [];
   const data = props.response;
@@ -43,9 +43,13 @@ function ApplicationsTable(props) {
             <InterviewsTable app_id={data[i]._id} />
           </Td>
           <Td>
-            <UpdateForm id={data[i]._id} setResponse={props.setResponse} />
+            <UpdateForm
+              id={data[i]._id}
+              setResponse={props.setResponse}
+              _id={props.id}
+            />
           </Td>
-        </Tr>,
+        </Tr>
       );
     }
   }
@@ -75,9 +79,7 @@ function ApplicationsTable(props) {
             <Th>Update</Th>
           </Tr>
         </Thead>
-        <Tbody>
-          {rows}
-        </Tbody>
+        <Tbody>{rows}</Tbody>
       </Table>
     </Box>
   );

@@ -23,4 +23,17 @@ module.exports = {
       next(err);
     }
   },
+  checkLogin: async (req, res, next) => {
+    try {
+      const {username} = req.body;
+      const user = await pool.query(
+        'SELECT password, _id FROM Users WHERE username = $1',
+        [username]
+      );
+      res.locals.data = user.rows;
+      return next();
+    } catch (err) {
+      next(err);
+    }
+  },
 };

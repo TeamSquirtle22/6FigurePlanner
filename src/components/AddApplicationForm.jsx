@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   Box,
   Button,
@@ -12,21 +12,21 @@ import {
   Input,
   Select,
   useDisclosure,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 function AddApplicationForm(props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {isOpen, onOpen, onClose} = useDisclosure();
   const btnRef = React.useRef();
 
   // state management for each form value
-  const [company, setCompany] = useState("");
-  const [position, setPosition] = useState("");
-  const [companyEmail, setCompanyEmail] = useState("");
-  const [companyNumber, setCompanyNumber] = useState("");
-  const [dateApplied, setDateApplied] = useState("");
-  const [interviewStatus, setInterviewStatus] = useState("");
-  const [offerReceived, setOfferReceived] = useState("");
-  const [doubleDown, setDoubleDown] = useState("");
+  const [company, setCompany] = useState('');
+  const [position, setPosition] = useState('');
+  const [companyEmail, setCompanyEmail] = useState('');
+  const [companyNumber, setCompanyNumber] = useState('');
+  const [dateApplied, setDateApplied] = useState('');
+  const [interviewStatus, setInterviewStatus] = useState('');
+  const [offerReceived, setOfferReceived] = useState('');
+  const [doubleDown, setDoubleDown] = useState('');
 
   // Event listeners for form values below
   const handleCompany = (e) => {
@@ -58,9 +58,9 @@ function AddApplicationForm(props) {
   };
 
   const submitData = (e) => {
-    fetch("/app", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
+    fetch('/app', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
         company: company,
         position: position,
@@ -70,12 +70,12 @@ function AddApplicationForm(props) {
         double_down: doubleDown,
         interview_status: interviewStatus,
         offer_received: offerReceived,
-        id: 1,
+        id: props.id,
       }),
     });
-    fetch("/app/1").then((res) => res.json()).then((data) =>
-      props.setResponse(data.data)
-    );
+    fetch(`/app/${props.id}`)
+      .then((res) => res.json())
+      .then((data) => props.setResponse(data.data));
     e.preventDefault();
   };
 
