@@ -3,57 +3,48 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require('path');
-const config = require('./models/config');
-
-app.use(cors());
-app.options('*', cors());
-
-/* OAuth */
-const session = require('express-session');
 const passport = require('passport');
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 /* Controllers */
 const userController = require('./controller/userController');
 const appController = require('./controller/appController');
 const interviewController = require('./controller/interviewController');
 
+app.use(cors());
+app.options('*', cors());  
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
-/* Set Session information to server */
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'SECRET',
-  })
-);
+/* OAuth */
+const session = require('express-session');
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'SECRET'
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+const initializePassport = require('./models/config');
+initializePassport(passport);
 
-passport.serializeUser(function (user, cb) {
-  cb(null, user);
+/* Set Session information to server */
+passport.serializeUser(function (user, done) {
+  done(null, user);
 });
 
-passport.deserializeUser(function (obj, cb) {
-  cb(null, obj);
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
 });
 
-passport.use(
-  new LinkedInStrategy(
-    {
-      clientID: config.linkedinAuth.clientID,
-      clientSecret: config.linkedinAuth.clientSecret,
-      callbackURL: config.linkedinAuth.callbackURL,
-      scope: ['r_emailaddress', 'r_liteprofile'],
-    },
-    function (token, tokenSecret, profile, done) {
-      return done(null, profile);
-    }
-  )
-);
+// Middleware to check if the user is authenticated
+function isUserAuthenticated(req, res, next) {
+  if (req.user) {
+      next();
+  } else {
+      res.send('You must login!');
+  }
+}
 
 /* Routes */
 app.get('/', (req, res) => {
@@ -106,24 +97,16 @@ app.get('/interview/:id', interviewController.getInterview, (req, res) => {
 });
 
 //OAuth route
-app.get(
-  '/linkedin-auth',
-  (req, res, next) => {
-    passport.authenticate('linkedin', {
-      scope: ['r_emailaddress', 'r_liteprofile'],
-    });
-    next();
-  },
-  (req, res) => res.status(200).json({data: 'linkedin auth route response'})
-);
+app.get('/linkedin-auth', (req, res) => {
+  passport.authenticate('linkedin', { scope: ['r_emailaddress', 'r_liteprofile'],})
+  res.redirect('/linkedin-auth/callback');
+});
 
-app.get(
-  '/linkedin-auth/callback',
-  passport.authenticate('linkedin', {
-    successRedirect: '/',
-    failureRedirect: '/wrong',
-  })
-);
+app.get('/linkedin-auth/callback', (req, res, next) => {console.log('asd;flkjqrepoi'); next()}, passport.authenticate('linkedin', {
+  successRedirect: '/',
+  failureRedirect: '/',
+  // failureFlash: true,
+}));
 
 app.use((err, req, res, next) => {
   console.log(err);

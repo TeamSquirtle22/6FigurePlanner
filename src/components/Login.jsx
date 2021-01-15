@@ -81,7 +81,12 @@ export default function Login(props) {
 }
 
 const LoginForm = (props) => {
-  const OAuth = (_) => fetch('/linkedin-auth');
+  const OAuth = async (e) => {
+    window.location = '/linkedin-auth';
+    props.setLoggedIn(true);
+    props.setId(8);
+    e.preventDefault();
+  };
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   // const [userID, setUserID] = useState('');
