@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 import {
-  Input,
-  Select,
-  useDisclosure,
+  Box,
   Button,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Box,
-  DrawerCloseButton,
+  Input,
+  Select,
+  useDisclosure,
 } from '@chakra-ui/react';
 
-function AddApplicationForm() {
+function AddApplicationForm(props) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const btnRef = React.useRef();
 
@@ -70,9 +70,12 @@ function AddApplicationForm() {
         double_down: doubleDown,
         interview_status: interviewStatus,
         offer_received: offerReceived,
-        id: 1,
+        id: props.id,
       }),
     });
+    fetch(`/app/${props.id}`)
+      .then((res) => res.json())
+      .then((data) => props.setResponse(data.data));
     e.preventDefault();
   };
 

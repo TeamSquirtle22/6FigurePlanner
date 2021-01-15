@@ -1,14 +1,52 @@
+/* General Imports */
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const path = require('path');
+const passport = require('passport');
+
+/* Controllers */
 const userController = require('./controller/userController');
 const appController = require('./controller/appController');
 const interviewController = require('./controller/interviewController');
 
+app.use(cors());
+app.options('*', cors());  
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
+
+/* OAuth */
+const session = require('express-session');
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'SECRET'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+const initializePassport = require('./models/config');
+initializePassport(passport);
+
+/* Set Session information to server */
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
+
+// Middleware to check if the user is authenticated
+function isUserAuthenticated(req, res, next) {
+  if (req.user) {
+      next();
+  } else {
+      res.send('You must login!');
+  }
+}
+
+/* Routes */
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../index.html'));
 });
@@ -19,7 +57,12 @@ app.post('/user', userController.addUser, (req, res) => {
 });
 
 //getting the user info
-app.get('/user', userController.getUser, (req, res) => {
+app.get('/user/:id', userController.getUser, (req, res) => {
+  return res.status(200).json({data: res.locals.data});
+});
+
+//login credentials
+app.post('/login', userController.checkLogin, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
@@ -29,14 +72,19 @@ app.post('/app', appController.addApp, (req, res) => {
 });
 
 //getting the users application
-app.get('/app', appController.getApp, (req, res) => {
+app.get('/app/:id', appController.getApp, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
 
 //deleting an application
 app.delete('/app/:id', appController.deleteApp, (req, res) => {
-  return res.status(200).json('app deleted')
-})
+  return res.status(200).json('app deleted');
+});
+
+//updating an application
+app.patch('/app/:id', appController.updateApp, (req, res) => {
+  return res.status(200).json('app updated');
+});
 
 //creating a new interview date for user
 app.post('/interview', interviewController.addInterview, (req, res) => {
@@ -44,9 +92,21 @@ app.post('/interview', interviewController.addInterview, (req, res) => {
 });
 
 //getting the users interview info
-app.get('/interview', interviewController.getInterview, (req, res) => {
+app.get('/interview/:id', interviewController.getInterview, (req, res) => {
   return res.status(200).json({data: res.locals.data});
 });
+
+//OAuth route
+app.get('/linkedin-auth', (req, res) => {
+  passport.authenticate('linkedin', { scope: ['r_emailaddress', 'r_liteprofile'],})
+  res.redirect('/linkedin-auth/callback');
+});
+
+app.get('/linkedin-auth/callback', (req, res, next) => {console.log('asd;flkjqrepoi'); next()}, passport.authenticate('linkedin', {
+  successRedirect: '/',
+  failureRedirect: '/',
+  // failureFlash: true,
+}));
 
 app.use((err, req, res, next) => {
   console.log(err);

@@ -15,9 +15,9 @@ module.exports = {
   },
   getInterview: async (req, res, next) => {
     try {
-      const {id} = req.body;
+      const {id} = req.params;
       const users = await pool.query(
-        'SELECT * FROM Interviews WHERE user_id = $1',
+        'SELECT * FROM Interviews WHERE app_id = $1',
         [id]
       );
       res.locals.data = users.rows;

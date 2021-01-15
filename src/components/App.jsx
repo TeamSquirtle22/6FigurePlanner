@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ApplicationsContainer from './ApplicationsContainer.jsx';
+import Login from './Login.jsx';
 
-const App =()=> {
-	return (
-		<div>
-			<h1> This is App.jsx</h1>
-			<h2> This is another h2 on App.jsx</h2>
-			<ApplicationsContainer />
-		</div>
-	);
-}
+const App = () => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [id, setId] = useState(0);
+
+  return (
+    <div>
+      {isLoggedIn ? (
+        <ApplicationsContainer id={id} />
+      ) : (
+        <Login setLoggedIn={setLoggedIn} setId={setId} />
+      )}
+    </div>
+  );
+};
 export default App;
